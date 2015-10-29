@@ -1,0 +1,33 @@
+name: xi_mm
+version: October 9 2015
+purpose: "Computes the matter-matter correlation function."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - "Parallelized with OpenMP. Benefits greatly from multiple threads."
+cite:
+    - ""
+assumptions:
+    - "Radial bins have already been created through the module setup_delta_sigma."
+
+explanation: 
+    "The matter-matter correlation function is just the 3D Fourier transform of the power
+     spectrum. Assuming spherical symmetry, this reduces to a radial integral over all k."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    matter_power: "string, the matter power spectrum to be integrated (e.g. matter_power_lin or matter_power_nl)."
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    matter_power_XXX:
+        k_h: "real 1D array, sample values of linear power spectrum in Mpc/h"
+        z: "real 1D array, redshift of linear power spectrum samples"
+        p_k: "real 2D array, linear powe spectrum in (Mpc/h)^{-3}"
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."
+
+outputs:
+    xi_mm:
+        xi_mm: "real 2D array, matter-matter correlation function at each radial bin for all redshift samples. If there is only a single redshift sample then this is a 1D array."

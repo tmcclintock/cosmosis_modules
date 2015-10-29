@@ -1,0 +1,37 @@
+name: tinker_bias
+version: October 9 2015
+purpose: "Computes the bias from Tinker et al. 2010."
+url: ""
+attribution: [Tom McClintock]
+rules:
+cite:
+    - "Tinker et al. 2010"
+assumptions:
+    - ""
+
+explanation: >
+    "Tinker et al. 2010 calculated a halo bias as a function of mass and overdensity (Delta).
+     This bias is then applied, e.g., to a matter-matter correlation function to arrive at a halo-matter
+     correlation function."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    delta: "real, overdensity or mean interior density relative to baryon background"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    cosmological_parameters:
+        hubble: "real, Hubble today in units of km/s/Mpc/100"
+        omega_m: "real, matter density fraction today"
+        log10_cluster_mass: "real, log_10 of the mass of the halo"
+        
+    matter_power_lin:
+        k_h: "real 1D array, sample values of linear power spectrum in Mpc/h"
+        z: "real 1D array, redshift of linear power spectrum samples"
+        p_k: "real 2D array, linear powe spectrum in (Mpc/h)^{-3}"
+
+outputs:
+    tinker_bias:
+        bias: "real 1D array, bias calcalated at each redshift"
+        sigma2m: "real 1D array, linear matter variance at each redshift"

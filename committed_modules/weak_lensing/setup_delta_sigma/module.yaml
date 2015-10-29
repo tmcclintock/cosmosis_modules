@@ -1,0 +1,27 @@
+name: setup_delta_sigma
+Version: October 9 2015
+purpose: "Set up the radial bins for computing DeltaSigma(R)"
+url: ""
+attribution: [Tom McClintock]
+rules: 
+    - "Radial bins are logarithmically spaced."
+cite: []
+assumptions:
+    - 
+
+explanation: 
+    ""
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    r_min: "real, minimum radius being calculated in units of Mpc/h"
+    r_max: "real, maximum radius being calculated in units of Mpc/h"
+    num_r: "real, number of radii spaced logarithmically between r_min and r_max"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+
+outputs:
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."

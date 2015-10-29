@@ -1,0 +1,37 @@
+name: delta_sigma
+version: October 9 2015
+purpose: "Computes the surface over density, DeltaSigma(R), at projected radius R."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - ""
+assumptions:
+    - "Below the minimum radius of the input correlation function an analytic NFW profile is used."
+
+explanation: 
+    - "Calculating the surface over density is an integral out to R: DeltaSigma(R) = frac{2}{R^2} int_{0}^{R} r_p Sigma(sqrt(R^2 + r_p^2)) dr_p - Sigma(R). A cubic spline is used to fit the Sigma(R) in order to calculate the mean surface density interior to R (i.e. the term on the left of the RHS). Note: the redshift samples come from the distance field (i.e. from CAMB) instead of from Halofit. This is because it doesn't actually matter the ordering of the redshifts, we just care about how many there are (len(z). The ordering of the samples here corresponds to that of halofit, i.e. low z to high z, while CAMB is the reverse of this"
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    delta: "real, overdensity or mean interior density relative to baryon background"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    cosmological_parameters:
+        hubble: "real, Hubble constant today in units of km/s/Mpc"
+        omega_m: "real, matter density fraction today"
+        log10_cluster_mass: "real, log_10 of the mass of the profile"
+        scale_radius: "real, scale radius of the profile"
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."
+    distances:
+        z: "real 1D array, redshifts of samples"
+    sigma_r:
+        sigma_r: "real 2D array, surface density in units of M_odot h/pc^2 at each radii for all redshift samples"
+
+
+outputs:
+    delta_sigma:
+        delta_sigma: "real 2D array, surface over density in units of M_odot h/pc^2 at each radii for all redshift samples"
+

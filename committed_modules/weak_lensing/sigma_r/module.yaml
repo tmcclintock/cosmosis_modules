@@ -1,0 +1,39 @@
+name: sigma_r
+version: October 9 2015
+purpose: "Computes the surface density, Sigma(R), at projected radius R."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - "Requires the cluster-mass correlation function to be calculated already."
+    - "Miscentering is an input at the moment. In future versions this will be turned into a parameter that might be tested for in MCMC."
+assumptions:
+    - "Below the minimum radius of the input correlation function an analytic NFW profile is used."
+    - "Upper limit of the integration is the maximum radius of the input correlation function, so if this is very small then contributions from the 2 halo term will be neglected. Another reasonable choice could have been to extrapolate a power law. This may be implemented as an option in future versions."
+
+explanation: 
+    - "Calculating the surface density is an integral along the line of sight: Sigma(R) = Omega_m rho_c int_{-inf}^{+inf} Xi_{hm}(sqrt(R^2 + r_z^2)dr_z. A cubic spline is used to fit the correlation function. Note: the redshift samples come from the distance field (i.e. from CAMB) instead of from Halofit. This is because it doesn't actually matter the ordering of the redshifts, we just care about how many there are (len(z). The ordering of the samples here corresponds to that of halofit, i.e. low z to high z, while CAMB is the reverse of this."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    delta: "real, overdensity or mean interior density relative to baryon background"
+    offset: "real, offset of the cluster center in Mpc/h. In later versions of the code this will become a parameter."
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    cosmological_parameters:
+        hubble: "real, Hubble constant today in units of km/s/Mpc"
+        omega_m: "real, matter density fraction today"
+        log10_cluster_mass: "real, log_10 of the mass of the profile"
+        scale_radius: "real, scale radius of the profile"
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."
+    distances:
+        z: "real 1D array, redshifts of samples"
+    xi_hm:
+        xi_hm: "real 2D array, cluster-matter correlation function at each radii for all redshift samples"
+
+outputs:
+    sigma_r:
+        sigma_r: "real 2D array, surface density in units of M_odot h/pc^2 at each radii for all redshift samples"
+

@@ -1,0 +1,46 @@
+name: nfw_profile
+version: October 9 2015
+purpose: "Compute the Navarro-Frenk-White (NFW) density profile of haloes."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    "This requires that a redshift sample, z, has been generated beforehand."
+cite:
+    - "http://arxiv.org/abs/astro-ph/9508025"
+
+assumptions:
+    - "Virialized halo created from gravitational collapse."
+    - "If used for, e.g., DeltaSigma(R) analysis then mass bins should match those from the module setup_delta_sigma."
+    - "Uses scale radius instead of concentration."
+
+explanation: >
+    "The NFW density profile describes the density of a virialized halo at a
+    given redshift assuming a spherical gravitational collapse model.
+
+    This profile changes as a function of the virial mass (M200) and
+    the characteristic scale radius (r_scale) at which the logarithmic slope
+    of the density profile is d log(rho)/d log(r) = -2.
+    "
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    delta: "real, overdensity or mean interior density relative to baryon background"
+    r_min: "real, minimum radius to calculate the profile at in units of Mpc/h"
+    r_max: "real, maximum radius to calculate the profile at in units of Mpc/h"
+    num_r: "integer, number of radii to calculate the profile at"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    cosmological_parameters:
+        hubble: "real, Hubble constant today in units of km/s/Mpc"
+        omega_m: "real, matter density fraction today"
+        log10_cluster_mass: "real, log_10 of the mass of the profile"
+        scale_radius: "real, scale radius of the profile"
+    distances:
+        z: "real 1D array, redshifts of samples"
+
+outputs:
+    nfw_profile:
+        concentration: "real, concentration of the profile, or the characteristic radius (e.g. R_{200}) in units of the scale radius."
+        rho_nfw: "real 2D array, density of sample at each radii at each sample redshift in units of SM/Mpc^3."

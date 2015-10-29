@@ -1,0 +1,33 @@
+name: xi_hh
+version: October 9 2015
+purpose: "Computes the halo-halo correlation function."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - ""
+cite:
+    - ""
+
+assumptions:
+    - "Requires a bias and xi_{mm} to be calculated first."
+
+explanation: >
+    "The halo-halo correlation function is simply 
+    \xi_{hh} = b(z,M)^2*\xi_{mm}."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    bias: "String, the name of the bias used (e.g. tinker)"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    ${bias}_bias:
+        bias: "real 2D array, bias calculated at each radial bin for all redshift samples"
+   
+    xi_hh:
+        xi_hh: "real 2D array, matter-matter correlation function for all redshift samples at each radii"
+        
+outputs:
+    xi_hh:
+        xi_hh: "2D real array, 2 halo-halo correlation function at each radii at each sample redshift. If only one redshift sample is given then this is a 1D real array."

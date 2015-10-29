@@ -1,0 +1,33 @@
+name: xi_hm
+version: October 9 2015
+purpose: "Computes the halo-matter correlation function."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - "A 1 halo and 2 halo term must already be calculated."
+    - ""
+assumptions:
+    - 
+
+explanation: >
+    "This module uses the Hayashi & White 2008 model of xi_hm(r) = max(xi_1halo(r), xi_2halo(r))."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    xi_1halo:
+        xi_1halo: "real 2D array, 1 halo correlation function at each radii for all redshift samples"
+    xi_2halo:
+        xi_2halo: "real 2D array, 2 halo correlation function at each radii for all redshift samples"
+
+outputs:
+    xi_hm:
+        xi_hm: "real 2D array, halo-matter correlation function at each radii for all redshift samples"
+        xi_1halo_no_exclusion: "real 2D array, 1 halo correlation function at each radii for all redshift samples, identical to the input xi_1halo"
+        xi_2halo_no_exclusion: "real 2D array, 2 halo correlation function at each radii for all redshift samples, identical to the input xi_2halo"
+        xi_1halo_with_exclusion: "real 2D array, 1 halo correlation function at each radii for all redshift samples with elements zeroed out where xi_1halo < xi_2halo"
+        xi_2halo_with_exclusion: "real 2D array, 2 halo correlation function at each radii for all redshift samples with elements zeroed out where xi_1halo > xi_2halo"
+

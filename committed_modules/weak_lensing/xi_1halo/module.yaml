@@ -1,0 +1,35 @@
+name: xi_1halo
+version: October 9 2015
+purpose: "Computes the 1 halo correlation function."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    "This requires that a density profile has been calcualted previously."
+cite:
+    - ""
+
+assumptions:
+    - "Works with the comoving matter density."
+
+explanation: >
+    "The 1 halo correlation function is simply 
+    \xi_{1h} = \frac{\rho_{profile}}{\rho_m} - 1."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    profile_name: "string, the prefix name (e.x. nfw) of the halo profile being used"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    cosmological_parameters:
+        hubble: "real, Hubble today in units of km/s/Mpc/100"
+        omega_m: "real, matter density fraction today"
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."
+    ${profile_name}_profile: 
+        rho_${profile_name}: "real 2D array, density of sample at each radii at each sample redshift in units of SM/Mpc^3"
+        
+outputs:
+    xi_1halo:
+        xi_1halo: "2D real array, 1 halo correlation function at each radii at each sample redshift."

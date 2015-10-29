@@ -1,0 +1,34 @@
+name: ave_delta_sigma
+version: October 9 2015
+purpose: "Computes the average surface over density, bar{DeltaSigma}, within some radial bins."
+url: ""
+attribution: [Tom McClintock]
+rules:
+    - ""
+assumptions:
+    - "DeltaSigma(R) has been computed previously over a range at least as large as the range of radial bins used here."
+
+explanation: 
+    - "This takes an average of the over density within logarithmically spaced radial bins. For a given radial bin {R_1,R_2}, this is given by: bar{DeltaSigma(R_1,R_2} = frac{2*int_{R_1}^{R_2} R*DeltaSigma(R)dR}{R_2^2 - R_1^2}."
+
+# List of parameters that can go in the params.ini file in the section for this module    
+params:
+    bin_min: "real, minimum bin edge in units of Mpc/h"
+    bin_max: "real, maximum bin edge in units of Mpc/h"
+    num_bins: "integer, number of radial bins"
+
+#Inputs for a given choice of a parameter, from the values.ini or from other modules
+#If no such choices, just do one of these omitting mode=something part:
+inputs:
+    delta_sigma:
+        delta_sigma:  "real 2D array, surface over density in units of M_odot h/pc^2 at previously specified radii for all redshift samples"
+    distances:
+        z: "real 1D array, redshifts of samples"
+    setup_delta_sigma:
+        radii: "1D real array, location of all radii that DeltaSigma(R) will be evaluated at."
+
+outputs:
+    ave_delta_sigma:
+        bin_edges: "real 1D array, edges of the radial bins. Note: this is num_r+1 in length."
+        ave_delta_sigma: "real 2D array, surface over density in units of M_odot h/pc^2 within each radial bin."
+
