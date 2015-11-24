@@ -25,8 +25,8 @@ inputs:
     ${bias}_bias:
         bias: "real 2D array, bias calculated at each radial bin for all redshift samples"
    
-    xi_hh:
-        xi_hh: "real 2D array, matter-matter correlation function for all redshift samples at each radii"
+    xi_mm:
+        xi_mm: "real 2D array, matter-matter correlation function for all redshift samples at each radii"
         
 outputs:
     xi_hh:
